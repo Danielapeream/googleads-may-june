@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analysis · Google Ads FS2026.CA.Search.Core</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600;1,700;1,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #1a1d23;
+    --white: #ffffff;
+    --cream: #FFF8E7;
+    --cream-soft: #faf8f4;
+    --off-white: #fafafa;
+
+    --gold: #facc0b;
+    --gold-dark: #a16207;
+    --gold-light-solid: #fef9c3;
+
+    --blue: #4C62EA;
+    --blue-dark: #3347C8;
+    --blue-light: #EEF1FD;
+    --blue-soft: #F5F7FE;
+
+    --gray-50: #fafafa;
+    --gray-100: #f4f4f5;
+    --gray-200: #e4e4e7;
+    --gray-300: #d4d4d8;
+    --gray-400: #a1a1aa;
+    --gray-500: #71717a;
+    --gray-600: #52525b;
+    --gray-700: #3f3f46;
+    --gray-800: #27272a;
+    --gray-900: #18181b;
+
+    --success: #10b981;
+    --success-light: #d1fae5;
+    --error: #ef4444;
+    --error-light: #fee2e2;
+    --warning: #d97706;
+    --warning-light: #fed7aa;
+
+    --ff-display: 'Plus Jakarta Sans', sans-serif;
+    --ff-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --ff-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--off-white);
+    font-family: var(--ff-body);
+    color: var(--gray-900);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .doc {
+    max-width: 980px;
+    margin: 0 auto;
+    background: var(--white);
+    border-left: 1px solid var(--gray-200);
+    border-right: 1px solid var(--gray-200);
+  }
+
+  .cover {
+    padding: 72px 64px 56px;
+    border-bottom: 1px solid var(--gray-200);
+    background: linear-gradient(180deg, var(--cream-soft) 0%, var(--white) 100%);
+  }
+  .cover-eyebrow {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--ff-display);
+    font-weight: 800;
+    font-size: 44px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--gray-900);
+    margin-bottom: 20px;
+    max-width: 720px;
+  }
+  .cover h1 em {
+    color: var(--blue);
+    font-style: italic;
+    font-weight: 800;
+  }
+  .cover-sub {
+    font-size: 17px;
+    color: var(--gray-600);
+    max-width: 640px;
+    line-height: 1.55;
+    margin-bottom: 36px;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--gray-200);
+    font-family: var(--ff-mono);
+    font-size: 12px;
+  }
+  .cover-meta-item .label {
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .cover-meta-item .value {
+    color: var(--gray-900);
+    font-weight: 600;
+  }
+
+  section {
+    padding: 64px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  section:last-child { border-bottom: none; }
+
+  .section-num {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    display: block;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-family: var(--ff-display);
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--gray-900);
+    margin-bottom: 16px;
+    max-width: 720px;
+  }
+  h2 em {
+    color: var(--blue);
+    font-style: italic;
+    font-weight: 800;
+  }
+  h3 {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 1.3;
+    color: var(--gray-900);
+    margin: 32px 0 12px;
+    letter-spacing: -0.01em;
+  }
+  p { color: var(--gray-700); margin-bottom: 14px; max-width: 720px; }
+  p strong { color: var(--gray-900); font-weight: 600; }
+
+  code, .mono {
+    font-family: var(--ff-mono);
+    font-size: 0.9em;
+    background: var(--gray-100);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--gray-800);
+  }
+
+  .exec-summary {
+    background: var(--cream);
+    border: 1px solid #e8d5a0;
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 24px;
+  }
+  .exec-summary-label {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 14px;
+  }
+  .exec-summary-headline {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 1.45;
+    color: var(--gray-900);
+    margin-bottom: 20px;
+  }
+  .exec-summary-headline em {
+    font-style: italic;
+    color: var(--blue);
+  }
+  .exec-summary ul {
+    list-style: none;
+    padding: 0;
+  }
+  .exec-summary li {
+    padding: 10px 0;
+    border-top: 1px solid #e8d5a0;
+    color: var(--gray-800);
+    font-size: 14.5px;
+    line-height: 1.5;
+    display: flex;
+    gap: 14px;
+  }
+  .exec-summary li:first-child { border-top: none; padding-top: 4px; }
+  .exec-summary li .marker {
+    font-family: var(--ff-mono);
+    font-weight: 700;
+    color: var(--blue);
+    flex-shrink: 0;
+    width: 28px;
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--gray-200);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 32px;
+  }
+  .metric {
+    background: var(--white);
+    padding: 24px 22px;
+  }
+  .metric-label {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+    margin-bottom: 10px;
+  }
+  .metric-value {
+    font-family: var(--ff-display);
+    font-weight: 800;
+    font-size: 28px;
+    color: var(--gray-900);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .metric-value .unit {
+    font-size: 14px;
+    color: var(--gray-500);
+    font-weight: 600;
+    margin-left: 2px;
+  }
+  .metric-note {
+    font-size: 12px;
+    color: var(--gray-500);
+  }
+
+  .chart-wrap {
+    margin-top: 32px;
+    padding: 28px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+  }
+  .chart-title {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+  .chart-sub {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 24px;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-size: 13.5px;
+  }
+  .data-table thead th {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+    font-family: var(--ff-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .data-table tbody td {
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-800);
+  }
+  .data-table tbody tr:hover { background: var(--gray-50); }
+  .data-table .num {
+    font-family: var(--ff-mono);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+  .data-table .strong-cell { font-weight: 600; color: var(--gray-900); }
+  .data-table .pos { color: var(--success); font-weight: 600; }
+  .data-table .neg { color: var(--error); font-weight: 600; }
+
+  .pill {
+    display: inline-block;
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .pill-pause { background: var(--error-light); color: #991b1b; }
+  .pill-scale { background: var(--success-light); color: #065f46; }
+  .pill-watch { background: var(--warning-light); color: #92400e; }
+  .pill-opt { background: var(--blue-light); color: var(--blue-dark); }
+
+  .callout {
+    margin: 28px 0;
+    padding: 20px 24px;
+    border-left: 3px solid var(--blue);
+    background: var(--blue-soft);
+    border-radius: 0 8px 8px 0;
+  }
+  .callout-label {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+  .callout p { color: var(--gray-800); margin: 0; font-size: 14.5px; }
+  .callout p strong { color: var(--gray-900); }
+
+  .callout-warning {
+    border-left-color: var(--warning);
+    background: #fef7ed;
+  }
+  .callout-warning .callout-label { color: var(--warning); }
+
+  .callout-error {
+    border-left-color: var(--error);
+    background: #fef2f2;
+  }
+  .callout-error .callout-label { color: #b91c1c; }
+
+  .lp-example {
+    margin: 28px 0;
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .lp-example-head {
+    padding: 16px 24px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+    font-family: var(--ff-mono);
+    font-size: 12px;
+    color: var(--gray-700);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lp-example-head .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--error);
+  }
+  .lp-example-body { padding: 24px; }
+  .lp-example-body .url {
+    font-family: var(--ff-mono);
+    font-size: 12.5px;
+    color: var(--blue);
+    word-break: break-all;
+    margin-bottom: 16px;
+    display: block;
+    padding: 10px 14px;
+    background: var(--blue-soft);
+    border-radius: 6px;
+  }
+  .lp-example-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .lp-example-col h5 {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+  .lp-example-col.what h5 { color: var(--gray-500); }
+  .lp-example-col.impact h5 { color: var(--error); }
+  .lp-example-col p { font-size: 13.5px; margin: 0; }
+
+  .timeline {
+    margin: 28px 0;
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--gray-200);
+    align-items: start;
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-time {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--gray-500);
+    padding-top: 2px;
+  }
+  .timeline-content { font-size: 14px; }
+  .timeline-action {
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+  .timeline-risk {
+    font-size: 12.5px;
+    color: var(--gray-600);
+  }
+  .timeline-risk .tag {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin-right: 8px;
+  }
+  .tag-low { background: var(--gray-100); color: var(--gray-600); }
+  .tag-med { background: var(--warning-light); color: #92400e; }
+  .tag-high { background: var(--error-light); color: #991b1b; }
+
+  .plan-phase {
+    margin: 28px 0 16px;
+    padding: 24px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    border-top: 3px solid var(--blue);
+  }
+  .plan-phase-label {
+    font-family: var(--ff-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+  .plan-phase h3 { margin: 0 0 14px; font-size: 19px; }
+  .plan-phase ol {
+    list-style: none;
+    counter-reset: step;
+    padding: 0;
+  }
+  .plan-phase ol li {
+    counter-increment: step;
+    padding: 12px 0;
+    border-top: 1px solid var(--gray-100);
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 12px;
+    font-size: 14.5px;
+    color: var(--gray-800);
+  }
+  .plan-phase ol li:first-child { border-top: none; padding-top: 4px; }
+  .plan-phase ol li::before {
+    content: counter(step);
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--blue);
+    background: var(--blue-light);
+    border-radius: 4px;
+    width: 24px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .plan-phase ol li strong { color: var(--gray-900); }
+  .plan-phase ol li .meta {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--gray-500);
+    margin-top: 4px;
+    display: block;
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .impact-card {
+    background: var(--cream);
+    border: 1px solid #e8d5a0;
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .impact-card .label {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gold-dark);
+    margin-bottom: 10px;
+  }
+  .impact-card .number {
+    font-family: var(--ff-display);
+    font-weight: 800;
+    font-size: 30px;
+    color: var(--gray-900);
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .impact-card .desc {
+    font-size: 13px;
+    color: var(--gray-700);
+    line-height: 1.5;
+  }
+
+  .asks {
+    background: var(--blue-soft);
+    border: 1px solid var(--blue-light);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 24px;
+  }
+  .asks h4 {
+    font-family: var(--ff-display);
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: var(--gray-900);
+  }
+  .asks ol {
+    padding-left: 20px;
+  }
+  .asks ol li {
+    padding: 8px 0;
+    color: var(--gray-800);
+    font-size: 14.5px;
+  }
+  .asks ol li strong { color: var(--gray-900); }
+
+  .doc-footer {
+    padding: 32px 64px;
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-200);
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--gray-500);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 720px) {
+    .cover, section { padding: 40px 24px; }
+    .doc-footer { padding: 24px; }
+    .cover h1 { font-size: 32px; }
+    h2 { font-size: 24px; }
+    .metrics, .impact-grid { grid-template-columns: 1fr; }
+    .lp-example-grid { grid-template-columns: 1fr; }
+    .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+    .cover-meta { flex-direction: column; gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+  <header class="cover">
+    <div class="cover-eyebrow">Internal analysis · Marketing</div>
+    <h1>Current state of campaign <em>FS2026.CA.Search.Core</em> and optimization plan.</h1>
+    <p class="cover-sub">30-day performance diagnosis, identification of the root cause affecting both SEM and SEO, risk assessment of recent bid strategy changes, and a prioritized action plan with projected impact.</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <span class="label">Period analyzed</span>
+        <span class="value">Apr 28 — May 27, 2026</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="label">Campaign</span>
+        <span class="value">FS2026.CA.Search.Core</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="label">Author</span>
+        <span class="value">Daniela Perea · Marketing Lead</span>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <span class="section-num">01 · Executive summary</span>
+    <h2>What <em>the numbers</em> are telling us.</h2>
+    <p>The campaign is reporting a 3.83× ROAS on 3,711 CAD of monthly spend, but that average hides three distinct realities: ad groups that are scaling well, ad groups that are burning budget without converting, and a landing-page-level root cause that's hurting both Quality Score on the ad side and organic performance on the SEO side.</p>
+
+    <div class="exec-summary">
+      <div class="exec-summary-label">Key findings</div>
+      <div class="exec-summary-headline">The problem isn't in the bid strategy — it's <em>upstream</em> of the ad.</div>
+      <ul>
+        <li><span class="marker">01</span><span><strong>15% of budget is evaporating.</strong> Eight ad groups (TForce, ABF, SAIA, XPO, Vitran, Estes, Roadrunner, FedEx) spent 545 CAD without generating a single conversion in 30 days. Annualized: ~6,500 CAD.</span></li>
+        <li><span class="marker">02</span><span><strong>Landing pages are sabotaging the ads.</strong> Google is reporting "low quality" status on keywords for ABF, Arcbest, and Day &amp; Ross LTL. URLs point to pages without relevant content, which inflates CPC artificially and kills organic SEO.</span></li>
+        <li><span class="marker">03</span><span><strong>The shift to "Maximize Conversion Value" is premature.</strong> This Smart Bidding strategy needs 30–50 conversions/month to train. The campaign has 23. Expect high volatility over the next 2–3 weeks.</span></li>
+        <li><span class="marker">04</span><span><strong>Three simultaneous changes broke attribution.</strong> On May 25, bid strategy, budget (×2), and search partners were all changed at once. If performance shifts now, we can't isolate which variable caused it.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <span class="section-num">02 · Current state</span>
+    <h2>The metrics <em>over the last 30 days.</em></h2>
+    <p>Aggregate campaign-level figures, before drilling into the internal distribution.</p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">Total spend</div>
+        <div class="metric-value">3,711<span class="unit">CAD</span></div>
+        <div class="metric-note">23,843 impressions · 849 clicks</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Conversions</div>
+        <div class="metric-value">23</div>
+        <div class="metric-note">2.71% conversion rate</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Cost per conversion</div>
+        <div class="metric-value">161<span class="unit">CAD</span></div>
+        <div class="metric-note">Internal benchmark: to be validated</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Average CPC</div>
+        <div class="metric-value">4.37<span class="unit">CAD</span></div>
+        <div class="metric-note">High for B2B logistics — Quality Score impact</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Average CTR</div>
+        <div class="metric-value">3.56<span class="unit">%</span></div>
+        <div class="metric-note">Above industry average (~3.0%)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Reported ROAS</div>
+        <div class="metric-value">3.83<span class="unit">×</span></div>
+        <div class="metric-note">To confirm: is conv. value real or static?</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="section-num">03 · Distribution by ad group</span>
+    <h2>The average is hiding <em>two different campaigns.</em></h2>
+    <p>When performance is broken down by ad group, a clear pattern emerges: a small group of ad groups have outstanding ROAS but are underfunded, while a large group consumes budget with no return.</p>
+
+    <div class="chart-wrap">
+      <div class="chart-title">ROAS by ad group</div>
+      <div class="chart-sub">Conversion value ÷ cost · sorted descending</div>
+
+      <svg viewBox="0 0 880 540" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <defs>
+          <pattern id="hatchRed" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
+            <rect width="6" height="6" fill="#fee2e2"/>
+            <line x1="0" y1="0" x2="0" y2="6" stroke="#ef4444" stroke-width="1.5"/>
+          </pattern>
+        </defs>
+
+        <g>
+          <text x="210" y="40" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">Comparison</text>
+          <rect x="220" y="26" width="566" height="22" fill="#10b981" rx="3"/>
+          <text x="794" y="42" font-family="JetBrains Mono, monospace" font-size="12" fill="#065f46" font-weight="700">66.0×</text>
+        </g>
+        <g>
+          <text x="210" y="76" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">Cross-Border</text>
+          <rect x="220" y="62" width="52" height="22" fill="#10b981" rx="3"/>
+          <text x="280" y="78" font-family="JetBrains Mono, monospace" font-size="12" fill="#065f46" font-weight="700">6.1×</text>
+        </g>
+        <g>
+          <text x="210" y="112" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">Day Ross</text>
+          <rect x="220" y="98" width="47" height="22" fill="#10b981" rx="3"/>
+          <text x="275" y="114" font-family="JetBrains Mono, monospace" font-size="12" fill="#065f46" font-weight="700">5.5×</text>
+        </g>
+        <g>
+          <text x="210" y="148" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">Generic LTL</text>
+          <rect x="220" y="134" width="45" height="22" fill="#10b981" rx="3"/>
+          <text x="273" y="150" font-family="JetBrains Mono, monospace" font-size="12" fill="#065f46" font-weight="700">5.2×</text>
+        </g>
+        <g>
+          <text x="210" y="184" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">Manitoulin</text>
+          <rect x="220" y="170" width="31" height="22" fill="#facc0b" rx="3"/>
+          <text x="259" y="186" font-family="JetBrains Mono, monospace" font-size="12" fill="#a16207" font-weight="700">3.6×</text>
+        </g>
+        <g>
+          <text x="210" y="220" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">Canada</text>
+          <rect x="220" y="206" width="25" height="22" fill="#facc0b" rx="3"/>
+          <text x="253" y="222" font-family="JetBrains Mono, monospace" font-size="12" fill="#a16207" font-weight="700">2.9×</text>
+        </g>
+        <g>
+          <text x="210" y="256" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">Quote Intent</text>
+          <rect x="220" y="242" width="18" height="22" fill="#facc0b" rx="3"/>
+          <text x="246" y="258" font-family="JetBrains Mono, monospace" font-size="12" fill="#a16207" font-weight="700">2.1×</text>
+        </g>
+
+        <line x1="60" y1="285" x2="820" y2="285" stroke="#e4e4e7" stroke-width="1" stroke-dasharray="4,4"/>
+        <text x="60" y="302" font-family="JetBrains Mono, monospace" font-size="10" fill="#a1a1aa" font-weight="600" letter-spacing="1.5">ZERO CONVERSIONS — 545 CAD WITH NO RETURN</text>
+
+        <g>
+          <text x="210" y="328" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">TForce</text>
+          <rect x="220" y="314" width="6" height="22" fill="url(#hatchRed)" rx="3" stroke="#ef4444" stroke-width="1"/>
+          <text x="234" y="330" font-family="JetBrains Mono, monospace" font-size="11" fill="#991b1b" font-weight="700">0× · 221 CAD spent</text>
+        </g>
+        <g>
+          <text x="210" y="358" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">ABF</text>
+          <rect x="220" y="344" width="6" height="22" fill="url(#hatchRed)" rx="3" stroke="#ef4444" stroke-width="1"/>
+          <text x="234" y="360" font-family="JetBrains Mono, monospace" font-size="11" fill="#991b1b" font-weight="700">0× · 100 CAD spent</text>
+        </g>
+        <g>
+          <text x="210" y="388" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">SAIA</text>
+          <rect x="220" y="374" width="6" height="22" fill="url(#hatchRed)" rx="3" stroke="#ef4444" stroke-width="1"/>
+          <text x="234" y="390" font-family="JetBrains Mono, monospace" font-size="11" fill="#991b1b" font-weight="700">0× · 66 CAD spent</text>
+        </g>
+        <g>
+          <text x="210" y="418" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">Vitran</text>
+          <rect x="220" y="404" width="6" height="22" fill="url(#hatchRed)" rx="3" stroke="#ef4444" stroke-width="1"/>
+          <text x="234" y="420" font-family="JetBrains Mono, monospace" font-size="11" fill="#991b1b" font-weight="700">0× · 57 CAD spent</text>
+        </g>
+        <g>
+          <text x="210" y="448" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">XPO</text>
+          <rect x="220" y="434" width="6" height="22" fill="url(#hatchRed)" rx="3" stroke="#ef4444" stroke-width="1"/>
+          <text x="234" y="450" font-family="JetBrains Mono, monospace" font-size="11" fill="#991b1b" font-weight="700">0× · 53 CAD spent</text>
+        </g>
+        <g>
+          <text x="210" y="478" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">FedEx</text>
+          <rect x="220" y="464" width="6" height="22" fill="url(#hatchRed)" rx="3" stroke="#ef4444" stroke-width="1"/>
+          <text x="234" y="480" font-family="JetBrains Mono, monospace" font-size="11" fill="#991b1b" font-weight="700">0× · 21 CAD spent</text>
+        </g>
+        <g>
+          <text x="210" y="508" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">Estes</text>
+          <rect x="220" y="494" width="6" height="22" fill="url(#hatchRed)" rx="3" stroke="#ef4444" stroke-width="1"/>
+          <text x="234" y="510" font-family="JetBrains Mono, monospace" font-size="11" fill="#991b1b" font-weight="700">0× · 20 CAD spent</text>
+        </g>
+        <g>
+          <text x="210" y="538" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="12" fill="#27272a" font-weight="600">Roadrunner</text>
+          <rect x="220" y="524" width="6" height="22" fill="url(#hatchRed)" rx="3" stroke="#ef4444" stroke-width="1"/>
+          <text x="234" y="540" font-family="JetBrains Mono, monospace" font-size="11" fill="#991b1b" font-weight="700">0× · 7 CAD spent</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Central insight</div>
+      <p>The <strong>Comparison</strong> ad group has a 66× ROAS on just 5 clicks for the month. It's dramatically underfunded. Reallocating budget from the 8 zero-conversion ad groups to Comparison, Cross-Border, and Quote Intent could triple returns without spending an additional dollar.</p>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Ad group</th>
+          <th class="num">Spend</th>
+          <th class="num">Conv. value</th>
+          <th class="num">Conv.</th>
+          <th class="num">ROAS</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="strong-cell">Comparison</td><td class="num">22.71</td><td class="num">1,500</td><td class="num">1</td><td class="num pos">66.0×</td><td><span class="pill pill-scale">Scale</span></td></tr>
+        <tr><td class="strong-cell">Cross-Border</td><td class="num">163.37</td><td class="num">1,000</td><td class="num">1</td><td class="num pos">6.1×</td><td><span class="pill pill-scale">Scale</span></td></tr>
+        <tr><td class="strong-cell">Day Ross</td><td class="num">850.91</td><td class="num">4,700</td><td class="num">6</td><td class="num pos">5.5×</td><td><span class="pill pill-scale">Scale</span></td></tr>
+        <tr><td class="strong-cell">Generic LTL</td><td class="num">309.32</td><td class="num">1,600</td><td class="num">2</td><td class="num pos">5.2×</td><td><span class="pill pill-opt">Optimize</span></td></tr>
+        <tr><td class="strong-cell">Manitoulin</td><td class="num">335.10</td><td class="num">1,200</td><td class="num">3</td><td class="num">3.6×</td><td><span class="pill pill-opt">Optimize</span></td></tr>
+        <tr><td class="strong-cell">Canada</td><td class="num">1,437.36</td><td class="num">4,100</td><td class="num">9</td><td class="num">2.9×</td><td><span class="pill pill-opt">Optimize</span></td></tr>
+        <tr><td class="strong-cell">Quote Intent</td><td class="num">47.13</td><td class="num">100</td><td class="num">1</td><td class="num">2.1×</td><td><span class="pill pill-watch">Expand</span></td></tr>
+        <tr><td class="strong-cell">TForce</td><td class="num">221.41</td><td class="num">0</td><td class="num">0</td><td class="num neg">0×</td><td><span class="pill pill-pause">Pause</span></td></tr>
+        <tr><td class="strong-cell">ABF</td><td class="num">99.60</td><td class="num">0</td><td class="num">0</td><td class="num neg">0×</td><td><span class="pill pill-pause">Pause</span></td></tr>
+        <tr><td class="strong-cell">SAIA</td><td class="num">66.19</td><td class="num">0</td><td class="num">0</td><td class="num neg">0×</td><td><span class="pill pill-pause">Pause</span></td></tr>
+        <tr><td class="strong-cell">Vitran</td><td class="num">56.75</td><td class="num">0</td><td class="num">0</td><td class="num neg">0×</td><td><span class="pill pill-pause">Pause</span></td></tr>
+        <tr><td class="strong-cell">XPO</td><td class="num">52.98</td><td class="num">0</td><td class="num">0</td><td class="num neg">0×</td><td><span class="pill pill-pause">Pause</span></td></tr>
+        <tr><td class="strong-cell">FedEx</td><td class="num">20.78</td><td class="num">0</td><td class="num">0</td><td class="num neg">0×</td><td><span class="pill pill-pause">Pause</span></td></tr>
+        <tr><td class="strong-cell">Estes</td><td class="num">20.49</td><td class="num">0</td><td class="num">0</td><td class="num neg">0×</td><td><span class="pill pill-pause">Pause</span></td></tr>
+        <tr><td class="strong-cell">Roadrunner</td><td class="num">6.74</td><td class="num">0</td><td class="num">0</td><td class="num neg">0×</td><td><span class="pill pill-pause">Pause</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <span class="section-num">04 · Root cause</span>
+    <h2>Landing pages are <em>killing two channels at once.</em></h2>
+    <p>The pattern across keyword reports is unambiguous. Keywords pointing to <code>/content/[carrier-name]</code> pages with real content (Day Ross, Manitoulin) convert. Keywords pointing to empty or generic pages get an explicit flag from Google: <em>"Eligible (limited) — Rarely shown (low quality score)"</em>.</p>
+
+    <div class="lp-example">
+      <div class="lp-example-head">
+        <span class="dot"></span>
+        <span>Example found during the audit</span>
+      </div>
+      <div class="lp-example-body">
+        <span class="url">https://www.freightsimple.com/content/shipping-companies-toronto/</span>
+        <div class="lp-example-grid">
+          <div class="lp-example-col what">
+            <h5>What the user finds</h5>
+            <p>Standard FreightSimple page. The header reads <em>"Top Toronto Shipping Companies"</em> but the content doesn't address the query. No actual listing, no comparison, no information that justifies the search.</p>
+          </div>
+          <div class="lp-example-col impact">
+            <h5>Measurable impact</h5>
+            <p>High bounce → Quality Score collapses → CPC inflates artificially → impressions lost in lower positions → organic SEO also fails because there's no useful content to index.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Evidence in Google Ads' own data</h3>
+    <p>The keyword report for Day Ross shows exactly the pattern:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Keyword</th>
+          <th class="num">Clicks</th>
+          <th class="num">Conv.</th>
+          <th class="num">Conv. rate</th>
+          <th>Status in Google</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>"day and ross quote"</code></td><td class="num">16</td><td class="num">2</td><td class="num pos">12.50%</td><td><span class="pill pill-scale">Eligible</span></td></tr>
+        <tr><td><code>"day ross freight"</code></td><td class="num">9</td><td class="num">1</td><td class="num pos">11.11%</td><td><span class="pill pill-scale">Eligible</span></td></tr>
+        <tr><td><code>"day ross shipping"</code></td><td class="num">16</td><td class="num">1</td><td class="num">6.25%</td><td><span class="pill pill-scale">Eligible</span></td></tr>
+        <tr><td><code>"day and ross freight"</code></td><td class="num">170</td><td class="num">2</td><td class="num neg">1.18%</td><td><span class="pill pill-pause">Limited · low quality</span></td></tr>
+        <tr><td><code>"day and ross ltl"</code></td><td class="num">2</td><td class="num">0</td><td class="num neg">0.00%</td><td><span class="pill pill-pause">Limited · low quality</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-error">
+      <div class="callout-label">The math hurts</div>
+      <p>Keywords flagged as low quality accumulate <strong>172 clicks</strong> with only 2 conversions (1.15%). Keywords with healthy Quality Score accumulate <strong>41 clicks</strong> with 4 conversions (9.76%). Same campaign, same carrier, same budget — the only variable that changes is <strong>the quality of the landing page</strong>. It's ~8× more efficient when the LP works.</p>
+    </div>
+
+    <h3>Why this problem is doubly expensive</h3>
+    <p>The same defect attacks two channels at once:</p>
+    <p><strong>In SEM (Google Ads):</strong> low Quality Score → inflated CPC → fewer impressions per dollar spent → conversions that would have happened cost more.</p>
+    <p><strong>In organic SEO:</strong> thin or non-existent content → Google doesn't rank those URLs → organic traffic for queries like "ABF freight Canada" goes to competitors → eternal dependency on SEM because organic never takes off.</p>
+    <p>Fixing landing pages isn't an isolated SEO or SEM task — it's <strong>one lever that moves both channels at once</strong>.</p>
+  </section>
+
+  <section>
+    <span class="section-num">05 · Risk assessment</span>
+    <h2>The <em>May 25 changes</em> need to be revisited.</h2>
+    <p>Three simultaneous campaign modifications were made within a 90-second window. Each individually is defensible; together they create attribution problems and a specific technical risk.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-time">11:03:52</div>
+        <div class="timeline-content">
+          <div class="timeline-action">Budget doubled · 150 → 300 CAD/day</div>
+          <div class="timeline-risk"><span class="tag tag-med">Medium risk</span>Without first auditing which ad groups convert, doubling budget can accelerate spend on non-converting groups.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">11:04:36</div>
+        <div class="timeline-content">
+          <div class="timeline-action">Bid strategy · Maximize Clicks → Maximize Conversion Value</div>
+          <div class="timeline-risk"><span class="tag tag-high">High risk</span>Smart Bidding needs 30–50 conv/month to train. We have 23. The algorithm will make assumptions with too little data.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-time">11:05:05</div>
+        <div class="timeline-content">
+          <div class="timeline-action">Search partners network · Disabled</div>
+          <div class="timeline-risk"><span class="tag tag-low">Low risk</span>Defensible decision. Improves attribution and removes low-quality traffic, though it may reduce volume.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>The technical problem with "Maximize Conversion Value"</h3>
+    <p>Google's documentation is explicit: value-based Smart Bidding strategies require a minimum of <strong>30–50 conversions per month</strong> for the model to learn how to optimize. Below that threshold, the algorithm:</p>
+    <p>· Overbids on clicks it believes are high-value (based on small, non-representative samples)<br>· Underbids on valuable clicks it hasn't yet learned to identify<br>· Generates high week-to-week volatility, making real performance hard to read</p>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Conversion volume vs. Smart Bidding minimum threshold</div>
+      <div class="chart-sub">Current conversions and Google's recommended range</div>
+
+      <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <rect x="60" y="80" width="680" height="40" fill="#f4f4f5" rx="6"/>
+
+        <rect x="372" y="80" width="136" height="40" fill="#d1fae5" rx="0"/>
+        <text x="440" y="105" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" fill="#065f46">OPTIMAL ZONE</text>
+
+        <rect x="60" y="80" width="312" height="40" fill="#fee2e2" rx="6 0 0 6"/>
+        <line x1="372" y1="70" x2="372" y2="130" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,3"/>
+
+        <circle cx="372" cy="100" r="8" fill="#ef4444" stroke="#fff" stroke-width="3"/>
+        <text x="372" y="60" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-weight="800" font-size="16" fill="#991b1b">23</text>
+        <text x="372" y="155" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#991b1b" letter-spacing="1">WHERE WE ARE</text>
+        <text x="372" y="170" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#71717a">−30% below threshold</text>
+
+        <text x="60" y="143" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#71717a">0</text>
+        <text x="508" y="143" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#71717a">50</text>
+        <text x="740" y="143" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#71717a">70+</text>
+
+        <text x="60" y="40" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600" fill="#71717a" letter-spacing="1">CONVERSIONS PER MONTH · SCALE</text>
+      </svg>
+    </div>
+
+    <h3>Why three simultaneous changes are a methodological problem</h3>
+    <p>If performance improves over the next two weeks, we won't know whether it was the budget increase, the new bid strategy, or disabling search partners. If performance drops, equally blind. This isn't a theoretical concern: any conclusions drawn in June will be hunches, not learnings.</p>
+
+    <div class="callout callout-warning">
+      <div class="callout-label">Technical recommendation</div>
+      <p>Temporarily revert "Maximize Conversion Value" to <strong>"Maximize Conversions"</strong> (much lower threshold, ~15 conv/month) or <strong>manual CPC</strong> while scaling volume. Return to the value-based strategy once we hit 40+ conv/month consistently, not before.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="section-num">06 · Action plan</span>
+    <h2>Three phases with <em>incremental impact.</em></h2>
+    <p>The plan is sequenced to free up budget and reduce risk in Phase 1, resolve the root cause in Phase 2, and scale aggressively but measurably in Phase 3.</p>
+
+    <div class="plan-phase">
+      <div class="plan-phase-label">Phase 01 · This week</div>
+      <h3>Quick wins, no product changes</h3>
+      <ol>
+        <li><div><strong>Pause the 8 zero-conversion ad groups</strong> (TForce, ABF, SAIA, XPO, Vitran, Estes, Roadrunner, FedEx).<span class="meta">Frees up 545 CAD/month · 0 dev hours</span></div></li>
+        <li><div><strong>Increase budget on the "Comparison" ad group</strong> from the freed-up funds. Start with an additional 100 CAD/month and monitor ROAS weekly.<span class="meta">If 66× ROAS holds: +6,600 CAD/month in value</span></div></li>
+        <li><div><strong>Revert or adjust the bid strategy</strong> to "Maximize Conversions" or manual CPC until we consistently exceed 40 conv/month.<span class="meta">Decision to align with Chris</span></div></li>
+        <li><div><strong>Export all final URLs from the campaign</strong> and audit one by one. Identify which are real pages and which are empty shells.<span class="meta">~2 hours of work</span></div></li>
+      </ol>
+    </div>
+
+    <div class="plan-phase">
+      <div class="plan-phase-label">Phase 02 · Next 2–4 weeks</div>
+      <h3>Resolve the root cause</h3>
+      <ol>
+        <li><div><strong>Build real landing pages for the largest carriers</strong> that would receive traffic: TForce, XPO, SAIA, ABF, Estes. Template: who the carrier is, their strengths, main lanes, how to quote via FreightSimple, comparison, clear CTA.<span class="meta">I define the structure, execution shared with Claude Code</span></div></li>
+        <li><div><strong>Full audit of <code>/content/*</code> pages</strong>. Any URL with a promising title but empty content gets deindexed and/or rewritten.<span class="meta">Combined SEM + organic SEO benefit</span></div></li>
+        <li><div><strong>Tight URL ↔ keyword match</strong>: every ad group should point to an LP where the user's query appears in the H1, meta description, and first paragraph.<span class="meta">Quality Score rises → CPC drops</span></div></li>
+        <li><div><strong>Reactivate the paused ad groups</strong> on a staggered schedule as their LPs are published.<span class="meta">Conditional reactivation, not automatic</span></div></li>
+      </ol>
+    </div>
+
+    <div class="plan-phase">
+      <div class="plan-phase-label">Phase 03 · Month 2</div>
+      <h3>Scale with confidence</h3>
+      <ol>
+        <li><div><strong>Return to "Maximize Conversion Value"</strong> once 40+ conv/month is confirmed over 3 consecutive weeks.<span class="meta">Smart Bidding now has enough data</span></div></li>
+        <li><div><strong>Increase overall budget</strong> only after ROAS stays above 4× for 2 consecutive weeks.<span class="meta">Grow on foundation, not assumption</span></div></li>
+        <li><div><strong>Expand the "Comparison" ad group</strong> with additional keywords like <code>[carrier] vs [carrier]</code> and build matching comparison content.<span class="meta">Highest-ROAS category remains the bet</span></div></li>
+        <li><div><strong>Start measuring organic SEO</strong> on the rebuilt pages to validate the cross-channel SEM ↔ SEO effect.<span class="meta">Confirm that LP investment pays double</span></div></li>
+      </ol>
+    </div>
+
+    <h3>Conservative projected impact</h3>
+
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="label">Immediate savings</div>
+        <div class="number">~545<span style="font-size: 16px; color: #71717a; font-weight: 600;"> CAD/mo</span></div>
+        <div class="desc">Pausing zero-conversion ad groups. ~6,500 CAD annualized.</div>
+      </div>
+      <div class="impact-card">
+        <div class="label">Estimated CPC reduction</div>
+        <div class="number">20–30<span style="font-size: 16px; color: #71717a; font-weight: 600;">%</span></div>
+        <div class="desc">With normalized Quality Score, CPC drops from ~4.37 CAD to 3.00–3.50 CAD.</div>
+      </div>
+      <div class="impact-card">
+        <div class="label">Value recovered</div>
+        <div class="number">+6,600<span style="font-size: 16px; color: #71717a; font-weight: 600;"> CAD/mo</span></div>
+        <div class="desc">Just from scaling "Comparison" at its current conv rate and maintaining ROAS.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="section-num">07 · Decisions needed</span>
+    <h2>To move this forward, <em>I need alignment on four points.</em></h2>
+
+    <div class="asks">
+      <h4>Specific decisions to validate with you</h4>
+      <ol>
+        <li><strong>Pausing the 8 zero-conversion ad groups.</strong> Can I proceed to pause them this week? It's the lowest-risk lever with the highest immediate savings.</li>
+        <li><strong>Bid strategy.</strong> Should we revert to "Maximize Conversions" or manual CPC until we hit 40 conv/month? My technical recommendation is yes — keeping "Max Value" without the data volume will produce erratic spend.</li>
+        <li><strong>Ownership of the Google Ads account.</strong> To execute this plan coherently and iterate quickly, can we agree that configuration changes go through marketing first, with a weekly check-in with you to review performance? That lets me take full accountability for the numbers.</li>
+        <li><strong>Resources to build landing pages.</strong> The full plan requires ~5–8 new carrier pages. Should I use Claude Code and own the execution, or open a ticket with product? The first path is faster but requires dedicated time.</li>
+      </ol>
+    </div>
+
+    <p style="margin-top: 32px;">Once we have alignment on these four points, I can start Phase 1 this same week and have a results check-in by Friday.</p>
+  </section>
+
+  <div class="doc-footer">
+    <div>FreightSimple · Internal Analysis · Marketing · May 28, 2026</div>
+    <div>Daniela Perea, Marketing Lead</div>
+  </div>
+
+</div>
+
+</body>
+</html>

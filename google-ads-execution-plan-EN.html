@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Execution Plan · Google Ads optimization</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600;1,700;1,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #1a1d23;
+    --white: #ffffff;
+    --cream: #FFF8E7;
+    --cream-soft: #faf8f4;
+    --off-white: #fafafa;
+
+    --gold: #facc0b;
+    --gold-dark: #a16207;
+    --gold-light-solid: #fef9c3;
+
+    --blue: #4C62EA;
+    --blue-dark: #3347C8;
+    --blue-light: #EEF1FD;
+    --blue-soft: #F5F7FE;
+
+    --gray-50: #fafafa;
+    --gray-100: #f4f4f5;
+    --gray-200: #e4e4e7;
+    --gray-300: #d4d4d8;
+    --gray-400: #a1a1aa;
+    --gray-500: #71717a;
+    --gray-600: #52525b;
+    --gray-700: #3f3f46;
+    --gray-800: #27272a;
+    --gray-900: #18181b;
+
+    --success: #10b981;
+    --success-light: #d1fae5;
+    --error: #ef4444;
+    --error-light: #fee2e2;
+    --warning: #d97706;
+    --warning-light: #fed7aa;
+
+    --ff-display: 'Plus Jakarta Sans', sans-serif;
+    --ff-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --ff-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--off-white);
+    font-family: var(--ff-body);
+    color: var(--gray-900);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .doc {
+    max-width: 980px;
+    margin: 0 auto;
+    background: var(--white);
+    border-left: 1px solid var(--gray-200);
+    border-right: 1px solid var(--gray-200);
+  }
+
+  .cover {
+    padding: 72px 64px 56px;
+    border-bottom: 1px solid var(--gray-200);
+    background: linear-gradient(180deg, var(--cream-soft) 0%, var(--white) 100%);
+  }
+  .cover-eyebrow {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    margin-bottom: 24px;
+  }
+  .cover h1 {
+    font-family: var(--ff-display);
+    font-weight: 800;
+    font-size: 44px;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--gray-900);
+    margin-bottom: 20px;
+    max-width: 720px;
+  }
+  .cover h1 em {
+    color: var(--blue);
+    font-style: italic;
+    font-weight: 800;
+  }
+  .cover-sub {
+    font-size: 17px;
+    color: var(--gray-600);
+    max-width: 640px;
+    line-height: 1.55;
+    margin-bottom: 36px;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 48px;
+    padding-top: 28px;
+    border-top: 1px solid var(--gray-200);
+    font-family: var(--ff-mono);
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+  .cover-meta-item .label {
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .cover-meta-item .value {
+    color: var(--gray-900);
+    font-weight: 600;
+  }
+
+  section {
+    padding: 64px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  section:last-child { border-bottom: none; }
+
+  .section-num {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    display: block;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-family: var(--ff-display);
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--gray-900);
+    margin-bottom: 16px;
+    max-width: 720px;
+  }
+  h2 em {
+    color: var(--blue);
+    font-style: italic;
+    font-weight: 800;
+  }
+  h3 {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 1.3;
+    color: var(--gray-900);
+    margin: 32px 0 12px;
+    letter-spacing: -0.01em;
+  }
+  p { color: var(--gray-700); margin-bottom: 14px; max-width: 720px; }
+  p strong { color: var(--gray-900); font-weight: 600; }
+  code, .mono {
+    font-family: var(--ff-mono);
+    font-size: 0.9em;
+    background: var(--gray-100);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--gray-800);
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .summary-card {
+    background: var(--cream);
+    border: 1px solid #e8d5a0;
+    border-radius: 12px;
+    padding: 22px;
+  }
+  .summary-card .label {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gold-dark);
+    margin-bottom: 10px;
+  }
+  .summary-card .number {
+    font-family: var(--ff-display);
+    font-weight: 800;
+    font-size: 28px;
+    color: var(--gray-900);
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .summary-card .desc { font-size: 13px; color: var(--gray-700); line-height: 1.5; }
+
+  .callout {
+    margin: 28px 0;
+    padding: 20px 24px;
+    border-left: 3px solid var(--blue);
+    background: var(--blue-soft);
+    border-radius: 0 8px 8px 0;
+  }
+  .callout-label {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+  .callout p { color: var(--gray-800); margin: 0; font-size: 14.5px; }
+  .callout p strong { color: var(--gray-900); }
+  .callout-warning { border-left-color: var(--warning); background: #fef7ed; }
+  .callout-warning .callout-label { color: var(--warning); }
+
+  .ad-group {
+    margin: 32px 0;
+    border: 1px solid var(--gray-200);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--white);
+  }
+  .ad-group-head {
+    padding: 22px 28px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .ad-group-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .ad-group-title {
+    font-family: var(--ff-display);
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--gray-900);
+    letter-spacing: -0.01em;
+  }
+  .flag { font-size: 18px; }
+  .ad-group-meta {
+    font-family: var(--ff-mono);
+    font-size: 11.5px;
+    color: var(--gray-500);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .ad-group-meta span strong { color: var(--gray-700); font-weight: 600; }
+  .ad-group-vp {
+    font-size: 14.5px;
+    color: var(--gray-700);
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+  .ad-group-vp strong { color: var(--gray-900); }
+
+  .pill {
+    display: inline-block;
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .pill-live { background: var(--success-light); color: #065f46; }
+  .pill-relaunch { background: var(--warning-light); color: #92400e; }
+  .pill-new { background: var(--blue-light); color: var(--blue-dark); }
+
+  .ad-group-body { padding: 28px; }
+
+  .variants {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .variant {
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .variant-head {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .variant-a .variant-head { background: var(--blue-soft); }
+  .variant-b .variant-head { background: var(--gold-light-solid); }
+  .variant-label {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 4px;
+  }
+  .variant-a .variant-label { color: var(--blue); }
+  .variant-b .variant-label { color: var(--gold-dark); }
+  .variant-name {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--gray-900);
+    letter-spacing: -0.01em;
+  }
+  .variant-body { padding: 16px 18px; }
+  .variant-section-label {
+    font-family: var(--ff-mono);
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gray-500);
+    margin-bottom: 8px;
+    margin-top: 14px;
+  }
+  .variant-section-label:first-child { margin-top: 0; }
+  .copy-block {
+    font-family: var(--ff-mono);
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--gray-800);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    padding: 12px 14px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .ad-group-foot {
+    padding: 16px 28px;
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-200);
+    font-family: var(--ff-mono);
+    font-size: 12px;
+    color: var(--gray-600);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .ad-group-foot .lp-label {
+    color: var(--gray-500);
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    margin-right: 8px;
+    font-weight: 700;
+  }
+  .ad-group-foot code { background: var(--white); border: 1px solid var(--gray-200); }
+
+  .timeline-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .tl-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .tl-card-head {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .tl-card-1 .tl-card-head { background: var(--blue-soft); border-top: 3px solid var(--blue); }
+  .tl-card-2 .tl-card-head { background: var(--gold-light-solid); border-top: 3px solid var(--gold); }
+  .tl-card-3 .tl-card-head { background: var(--cream); border-top: 3px solid var(--gold-dark); }
+  .tl-week {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 6px;
+  }
+  .tl-card-1 .tl-week { color: var(--blue); }
+  .tl-card-2 .tl-week { color: var(--gold-dark); }
+  .tl-card-3 .tl-week { color: var(--gold-dark); }
+  .tl-title {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--gray-900);
+    line-height: 1.25;
+  }
+  .tl-card-body {
+    padding: 18px 22px;
+  }
+  .tl-card-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .tl-card-body li {
+    padding: 10px 0;
+    border-top: 1px solid var(--gray-100);
+    font-size: 13.5px;
+    color: var(--gray-800);
+    line-height: 1.5;
+    display: flex;
+    gap: 8px;
+  }
+  .tl-card-body li:first-child { border-top: none; padding-top: 0; }
+  .tl-card-body li::before {
+    content: '→';
+    color: var(--blue);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .tl-card-body li strong { color: var(--gray-900); font-weight: 600; }
+
+  .asks {
+    background: var(--blue-soft);
+    border: 1px solid var(--blue-light);
+    border-radius: 12px;
+    padding: 32px;
+    margin-top: 24px;
+  }
+  .asks h4 {
+    font-family: var(--ff-display);
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: var(--gray-900);
+  }
+  .asks ol { padding-left: 20px; }
+  .asks ol li { padding: 8px 0; color: var(--gray-800); font-size: 14.5px; }
+  .asks ol li strong { color: var(--gray-900); }
+
+  .doc-footer {
+    padding: 32px 64px;
+    background: var(--gray-50);
+    border-top: 1px solid var(--gray-200);
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--gray-500);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .group-divider {
+    margin: 48px 0 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gray-200);
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gray-500);
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-size: 13.5px;
+  }
+  .data-table thead th {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+    font-family: var(--ff-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .data-table tbody td {
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-800);
+  }
+  .data-table tbody tr:hover { background: var(--gray-50); }
+  .data-table .strong-cell { font-weight: 600; color: var(--gray-900); }
+
+  @media (max-width: 900px) {
+    .variants, .timeline-cards, .summary-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    .cover, section { padding: 40px 24px; }
+    .doc-footer { padding: 24px; }
+    .cover h1 { font-size: 32px; }
+    h2 { font-size: 24px; }
+    .ad-group-head, .ad-group-body, .ad-group-foot { padding: 18px 20px; }
+    .cover-meta { flex-direction: column; gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+  <header class="cover">
+    <div class="cover-eyebrow">Execution Plan · Companion to the FS2026.CA.Search.Core analysis</div>
+    <h1>New ad copy and rollout plan for <em>10 ad groups</em> across 3 weeks.</h1>
+    <p class="cover-sub">Rewritten copy from scratch for Generic LTL and 9 carrier ad groups, deployment sequenced by landing page dependency, and value propositions differentiated by each carrier's actual operational strength.</p>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <span class="label">Document</span>
+        <span class="value">Execution Plan · v1</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="label">Campaign</span>
+        <span class="value">FS2026.CA.Search.Core</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="label">For review by</span>
+        <span class="value">Chris</span>
+      </div>
+      <div class="cover-meta-item">
+        <span class="label">Author</span>
+        <span class="value">Daniela Perea</span>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <span class="section-num">01 · Quick context</span>
+    <h2>Where this plan comes from and <em>what it solves.</em></h2>
+    <p>The prior campaign analysis identified three concurrent problems: <strong>15% of spend is evaporating</strong> across 8 ad groups with zero conversions, <strong>the current copy is poorly written and poorly positioned</strong> (keyword stuffing, typos like "Ltl", vague value proposition), and <strong>the landing pages are the root cause</strong> hurting both Quality Score and organic SEO at the same time.</p>
+    <p>This document resolves the second problem (copy) and sequences the resolution of the third (landing pages). The ad group pauses and relaunches in this plan are aligned with that sequence.</p>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="label">Ad groups with new copy</div>
+        <div class="number">10</div>
+        <div class="desc">Generic LTL + Day &amp; Ross + Manitoulin + 7 carriers to relaunch</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Variants proposed</div>
+        <div class="number">20</div>
+        <div class="desc">Two RSAs per ad group (Speed + Contrarian) for A/B testing</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Rollout window</div>
+        <div class="number">3 wks</div>
+        <div class="desc">Live this week · LPs and relaunches in weeks 2–3</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Carrier coverage confirmed</div>
+      <p>The 9 carrier ad groups listed here have been <strong>confirmed as active on the FreightSimple platform by operations</strong>, including Vitran (despite earlier market reports, Vitran is operating independently and remains a meaningful volume carrier for us).</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="section-num">02 · Generic LTL</span>
+    <h2>The <em>highest-volume</em> ad group — copy rewritten.</h2>
+    <p>This ad group captures generic searches like <code>ltl shipping</code>, <code>ltl freight quotes</code>, <code>less than truckload</code>. It generates the most impressions and is where the current copy ("LTL Freight Shipping | Freight Shipping Quotes | Freight Billing") is most off-strategy. Launch both RSAs in parallel for A/B testing.</p>
+
+    <div class="ad-group">
+      <div class="ad-group-head">
+        <div class="ad-group-title-row">
+          <span class="ad-group-title">Generic LTL</span>
+          <span class="pill pill-live">Live · 5.2× ROAS</span>
+        </div>
+        <div class="ad-group-meta">
+          <span><strong>69</strong> clicks / month</span>
+          <span><strong>309</strong> CAD / month</span>
+          <span><strong>2</strong> conversions / month</span>
+        </div>
+        <div class="ad-group-vp"><strong>Value proposition:</strong> speed and integration. The generic shipper is tired of the traditional broker model — requesting quotes by phone, waiting hours, receiving inconsistent responses. FreightSimple solves that with instant quoting and a single platform.</div>
+      </div>
+      <div class="ad-group-body">
+        <div class="variants">
+
+          <div class="variant variant-a">
+            <div class="variant-head">
+              <div class="variant-label">Variant A</div>
+              <div class="variant-name">Speed &amp; Simplicity</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines (30 chars max)</div>
+              <div class="copy-block">Instant LTL Freight Quotes
+Compare LTL Carriers Fast
+Book LTL in 60 Seconds
+Quote, Book, Track Online
+Real-Time LTL Pricing
+LTL Shipping, Simplified
+From Quote to BOL Fast
+All Your LTL Carriers
+Skip the Phone Tag
+Modern LTL Platform
+25+ LTL Carriers, One Place
+LTL Without the Spreadsheets</div>
+              <div class="variant-section-label">Descriptions (90 chars max)</div>
+              <div class="copy-block">Instant rates from top LTL carriers. Quote, book, track online. No calls, no fax.
+Built for shippers who move freight daily. Real-time pricing. Live tracking included.
+Replace the spreadsheets and phone calls. Modern LTL shipping that actually works.
+Compare carriers, book shipments, and track BOLs in one place. Built for shippers.</div>
+            </div>
+          </div>
+
+          <div class="variant variant-b">
+            <div class="variant-head">
+              <div class="variant-label">Variant B</div>
+              <div class="variant-name">Contrarian / Status Quo</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines (30 chars max)</div>
+              <div class="copy-block">LTL Without the Phone Calls
+Quotes in Minutes, Not Days
+Made for Shippers, Not Brokers
+Stop Calling Carriers
+The End of Faxing BOLs
+Freight Without the Friction
+LTL, Reimagined
+Tired of Calling for Quotes?
+Better Than a Broker
+Built for Logistics Teams
+Phone Tag Is Not a Workflow
+Modern LTL for Real Shippers</div>
+              <div class="variant-section-label">Descriptions (90 chars max)</div>
+              <div class="copy-block">Calling five carriers to compare rates is broken. Get instant LTL quotes in one place.
+The way LTL has always worked isn't how it should work. Try the modern alternative.
+If you're still emailing for quotes, there's a better way to ship LTL freight.
+Phone tag, faxed BOLs, missed pickups. None of that. Just modern LTL shipping.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="ad-group-foot">
+        <div><span class="lp-label">Landing</span><code>freightsimple.com/ltl-quotes</code></div>
+        <div><span class="lp-label">Launch</span>Week 1 · both RSAs in parallel</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="section-num">03 · Carriers currently running</span>
+    <h2>The two carriers that <em>already work</em> — copy update only.</h2>
+    <p>Day &amp; Ross and Manitoulin have healthy ROAS and landing pages that actually convert. The change here is purely cosmetic-strategic: new copy with a carrier-specific value proposition. No pause, no risk of losing momentum.</p>
+
+    <div class="ad-group">
+      <div class="ad-group-head">
+        <div class="ad-group-title-row">
+          <span class="ad-group-title"><span class="flag">🇨🇦</span> Day &amp; Ross</span>
+          <span class="pill pill-live">Live · 5.5× ROAS</span>
+        </div>
+        <div class="ad-group-meta">
+          <span><strong>213</strong> clicks / month</span>
+          <span><strong>851</strong> CAD / month</span>
+          <span><strong>6</strong> conversions / month</span>
+        </div>
+        <div class="ad-group-vp"><strong>Carrier-specific value proposition:</strong> Day &amp; Ross is a Canadian carrier with strong cross-border US–Canada capabilities and broad coverage across Atlantic Canada (Maritimes). The copy emphasizes that differentiator — shippers searching "Day and Ross" likely have a cross-border lane.</div>
+      </div>
+      <div class="ad-group-body">
+        <div class="variants">
+          <div class="variant variant-a">
+            <div class="variant-head">
+              <div class="variant-label">Variant A</div>
+              <div class="variant-name">Speed</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Instant Day &amp; Ross Rates
+Quote Day &amp; Ross Online
+Day &amp; Ross LTL in Seconds
+Compare Day &amp; Ross Rates
+Book Day &amp; Ross Direct
+Live Day &amp; Ross Pricing
+Day &amp; Ross + 25 Carriers
+Skip the Day &amp; Ross Call</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Instant Day &amp; Ross LTL quotes including cross-border CA-US. Plus 25+ carriers.
+Skip the phone call. Get live Day &amp; Ross rates and book LTL shipments online.
+Day &amp; Ross plus every major Canadian LTL carrier — all in one platform.</div>
+            </div>
+          </div>
+          <div class="variant variant-b">
+            <div class="variant-head">
+              <div class="variant-label">Variant B</div>
+              <div class="variant-name">Contrarian</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Stop Calling Day &amp; Ross
+Day &amp; Ross Without the Wait
+Day &amp; Ross Quotes, Instantly
+Faster Than Day &amp; Ross Direct
+Day &amp; Ross + Every LTL Carrier
+Day &amp; Ross, No Phone Tag
+Skip the Carrier Hotline
+Day &amp; Ross, Reimagined</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Why call Day &amp; Ross for a quote when you can get one in seconds online?
+Day &amp; Ross rates including cross-border CA-US. No hold music, no phone tag.
+Day &amp; Ross + 25 carriers. Compared in one click. Booked in minutes.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ad-group-foot">
+        <div><span class="lp-label">Landing</span><code>freightsimple.com/content/day-ross</code></div>
+        <div><span class="lp-label">Launch</span>Week 1 · replaces current copy</div>
+      </div>
+    </div>
+
+    <div class="ad-group">
+      <div class="ad-group-head">
+        <div class="ad-group-title-row">
+          <span class="ad-group-title"><span class="flag">🇨🇦</span> Manitoulin</span>
+          <span class="pill pill-live">Live · 3.6× ROAS</span>
+        </div>
+        <div class="ad-group-meta">
+          <span><strong>82</strong> clicks / month</span>
+          <span><strong>335</strong> CAD / month</span>
+          <span><strong>3</strong> conversions / month</span>
+        </div>
+        <div class="ad-group-vp"><strong>Carrier-specific value proposition:</strong> Manitoulin is a Canadian carrier with strong coverage in Northern Ontario and cross-border lanes. The copy emphasizes cross-border and the broad Ontario + US coverage.</div>
+      </div>
+      <div class="ad-group-body">
+        <div class="variants">
+          <div class="variant variant-a">
+            <div class="variant-head">
+              <div class="variant-label">Variant A</div>
+              <div class="variant-name">Speed</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Instant Manitoulin Rates
+Quote Manitoulin Online
+Manitoulin LTL in Seconds
+Compare Manitoulin Rates
+Live Manitoulin Pricing
+Book Manitoulin Direct
+Manitoulin + 25 Carriers
+Skip the Manitoulin Call</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Instant Manitoulin LTL quotes with cross-border CA-US support. Plus 25+ carriers.
+Get Manitoulin rates without picking up the phone. Live pricing, instant booking.
+Manitoulin's Ontario network plus every major Canadian and US LTL carrier.</div>
+            </div>
+          </div>
+          <div class="variant variant-b">
+            <div class="variant-head">
+              <div class="variant-label">Variant B</div>
+              <div class="variant-name">Contrarian</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Stop Calling Manitoulin
+Manitoulin Without the Wait
+Manitoulin, Reimagined
+Manitoulin Quotes, Instantly
+Faster Than Manitoulin Direct
+Skip the Carrier Hotline
+Manitoulin, No Phone Tag</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Why call Manitoulin when you can compare rates and book online in minutes?
+Manitoulin rates with cross-border support. No hold music, no phone tag.
+Manitoulin + 25 Canadian and US carriers — one platform, one click.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ad-group-foot">
+        <div><span class="lp-label">Landing</span><code>freightsimple.com/content/manitoulin</code></div>
+        <div><span class="lp-label">Launch</span>Week 1 · replaces current copy</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="section-num">04 · Carriers to relaunch</span>
+    <h2>The 7 carriers <em>returning to air</em> as their LPs are built.</h2>
+    <p>These 7 ad groups remain paused under this plan. Each has copy ready, but <strong>none gets reactivated until its landing page exists</strong>. In the interim, they can point to the <code>/ltl-carriers</code> page built in Week 2. Descriptions for each emphasize the carrier's actual operational strength.</p>
+
+    <div class="group-divider">Block · US National Carriers — broad coverage</div>
+
+    <div class="ad-group">
+      <div class="ad-group-head">
+        <div class="ad-group-title-row">
+          <span class="ad-group-title"><span class="flag">🇺🇸</span> TForce Freight</span>
+          <span class="pill pill-relaunch">Paused · Relaunch W3</span>
+        </div>
+        <div class="ad-group-meta">
+          <span><strong>Prior spend:</strong> 221 CAD/month</span>
+          <span><strong>Pre-pause volume:</strong> 60 clicks/month</span>
+        </div>
+        <div class="ad-group-vp"><strong>Carrier-specific value proposition:</strong> TForce Freight (formerly UPS Freight, now owned by Canadian TFI) operates the full US national LTL network with mature tracking. The copy emphasizes national coverage + the contrast with calling their hotline.</div>
+      </div>
+      <div class="ad-group-body">
+        <div class="variants">
+          <div class="variant variant-a">
+            <div class="variant-head">
+              <div class="variant-label">Variant A</div>
+              <div class="variant-name">Speed</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Instant TForce LTL Rates
+Quote TForce Online
+TForce Freight in Seconds
+Compare TForce Rates
+Book TForce in Minutes
+Live TForce Pricing
+TForce + 25 LTL Carriers
+Skip the TForce Call</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Instant TForce rates across their US national LTL network. Plus 25+ carriers.
+TForce Freight quotes and tracking, plus every major US LTL carrier in one platform.
+Quote and book TForce Freight without leaving your browser. Live pricing included.</div>
+            </div>
+          </div>
+          <div class="variant variant-b">
+            <div class="variant-head">
+              <div class="variant-label">Variant B</div>
+              <div class="variant-name">Contrarian</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Stop Calling TForce
+TForce Without Phone Tag
+TForce Quotes, Instantly
+TForce, Reimagined
+Faster Than TForce Direct
+TForce, No Hold Music
+Compare TForce + 25 More</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Why call TForce for a quote when you can compare 25+ carriers in seconds?
+TForce rates without the wait. Plus every major US LTL carrier in one platform.
+Get TForce rates and instantly compare them with the rest of the market.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ad-group-foot">
+        <div><span class="lp-label">Final landing</span><code>/content/tforce</code> · <span class="lp-label" style="margin-left: 12px;">Interim</span><code>/ltl-carriers</code></div>
+        <div><span class="lp-label">Launch</span>Week 3 · high priority</div>
+      </div>
+    </div>
+
+    <div class="ad-group">
+      <div class="ad-group-head">
+        <div class="ad-group-title-row">
+          <span class="ad-group-title"><span class="flag">🇺🇸</span> ABF Freight</span>
+          <span class="pill pill-relaunch">Paused · Relaunch W3</span>
+        </div>
+        <div class="ad-group-meta">
+          <span><strong>Prior spend:</strong> 100 CAD/month</span>
+          <span><strong>Pre-pause volume:</strong> 25 clicks/month</span>
+        </div>
+        <div class="ad-group-vp"><strong>Carrier-specific value proposition:</strong> ABF Freight (part of ArcBest, founded in 1923) is one of the few unionized US LTL carriers with a premium reputation for handling heavy and complex freight. The copy can reference "reliable" without sounding generic because ABF actually has that reputation in the industry.</div>
+      </div>
+      <div class="ad-group-body">
+        <div class="variants">
+          <div class="variant variant-a">
+            <div class="variant-head">
+              <div class="variant-label">Variant A</div>
+              <div class="variant-name">Speed</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Instant ABF Freight Rates
+ABF Quotes in Seconds
+ABF + 25 LTL Carriers
+Compare ABF Rates
+Book ABF Online
+Live ABF Pricing
+Skip the ABF Hotline
+Quote ABF Online</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Instant ABF Freight rates with national US coverage. Plus 25+ LTL carriers.
+ABF rates and tracking — same reliability, none of the phone calls.
+ABF Freight quotes plus every major US LTL carrier — all in one platform.</div>
+            </div>
+          </div>
+          <div class="variant variant-b">
+            <div class="variant-head">
+              <div class="variant-label">Variant B</div>
+              <div class="variant-name">Contrarian</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Stop Calling ABF
+ABF Without the Wait
+ABF, Reimagined
+ABF Quotes, Instantly
+ABF + Every Major LTL
+Faster Than ABF Direct
+Skip the Carrier Hotline</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Why call ABF when you can compare rates and book in seconds online?
+ABF Freight rates without phone tag. Quote, book, and track LTL online.
+ABF rates plus every major US LTL carrier — compared in one click.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ad-group-foot">
+        <div><span class="lp-label">Final landing</span><code>/content/abf</code> · <span class="lp-label" style="margin-left: 12px;">Interim</span><code>/ltl-carriers</code></div>
+        <div><span class="lp-label">Launch</span>Week 3 · high priority</div>
+      </div>
+    </div>
+
+    <div class="ad-group">
+      <div class="ad-group-head">
+        <div class="ad-group-title-row">
+          <span class="ad-group-title"><span class="flag">🇺🇸</span> SAIA</span>
+          <span class="pill pill-relaunch">Paused · Relaunch W4</span>
+        </div>
+        <div class="ad-group-meta">
+          <span><strong>Prior spend:</strong> 66 CAD/month</span>
+          <span><strong>Pre-pause volume:</strong> 18 clicks/month</span>
+        </div>
+        <div class="ad-group-vp"><strong>Carrier-specific value proposition:</strong> SAIA is one of the fastest-growing US LTL carriers in network coverage over the last decade. The copy emphasizes their national expansion and the ease of comparing them against other carriers to validate competitiveness.</div>
+      </div>
+      <div class="ad-group-body">
+        <div class="variants">
+          <div class="variant variant-a">
+            <div class="variant-head">
+              <div class="variant-label">Variant A</div>
+              <div class="variant-name">Speed</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Instant SAIA LTL Rates
+SAIA Quotes Online
+SAIA + 25 LTL Carriers
+Compare SAIA Rates
+Book SAIA in Minutes
+Live SAIA Pricing
+Skip the SAIA Hotline
+SAIA Freight, Instantly</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Instant SAIA LTL rates across their growing US network. Plus 25+ carriers.
+SAIA rates and tracking, plus every major US LTL carrier in one platform.
+Quote SAIA Freight and compare with the rest of the market in one click.</div>
+            </div>
+          </div>
+          <div class="variant variant-b">
+            <div class="variant-head">
+              <div class="variant-label">Variant B</div>
+              <div class="variant-name">Contrarian</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Stop Calling SAIA
+SAIA Without the Wait
+SAIA Quotes, Instantly
+SAIA, Reimagined
+SAIA, No Phone Tag
+Faster Than SAIA Direct
+Compare SAIA + 25 More</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Why call SAIA for a quote when you can compare 25+ carriers online?
+SAIA rates without the hold music. Quote, book, and track LTL online.
+SAIA Freight + every major LTL carrier — compared in seconds, booked in minutes.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ad-group-foot">
+        <div><span class="lp-label">Final landing</span><code>/content/saia</code> · <span class="lp-label" style="margin-left: 12px;">Interim</span><code>/ltl-carriers</code></div>
+        <div><span class="lp-label">Launch</span>Week 4</div>
+      </div>
+    </div>
+
+    <div class="ad-group">
+      <div class="ad-group-head">
+        <div class="ad-group-title-row">
+          <span class="ad-group-title"><span class="flag">🇺🇸</span> XPO</span>
+          <span class="pill pill-relaunch">Paused · Relaunch W4</span>
+        </div>
+        <div class="ad-group-meta">
+          <span><strong>Prior spend:</strong> 53 CAD/month</span>
+          <span><strong>Pre-pause volume:</strong> 14 clicks/month</span>
+        </div>
+        <div class="ad-group-vp"><strong>Carrier-specific value proposition:</strong> XPO Inc. (spun off from XPO Logistics in 2022 to focus solely on LTL) is one of the top 3 US LTL carriers by revenue, with a large national network and a tech-forward platform. The copy emphasizes national network + the absurdity of calling a tech-savvy carrier to get a manual quote.</div>
+      </div>
+      <div class="ad-group-body">
+        <div class="variants">
+          <div class="variant variant-a">
+            <div class="variant-head">
+              <div class="variant-label">Variant A</div>
+              <div class="variant-name">Speed</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Instant XPO LTL Rates
+XPO Quotes in Seconds
+XPO + 25 LTL Carriers
+Compare XPO Rates
+Book XPO Online
+Live XPO Pricing
+Skip the XPO Hotline</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Instant XPO Freight rates across their full US LTL network. Plus 25+ carriers.
+XPO rates and tracking, plus every major US LTL carrier — all in one platform.
+XPO Freight quotes without the phone call. Live pricing, instant booking.</div>
+            </div>
+          </div>
+          <div class="variant variant-b">
+            <div class="variant-head">
+              <div class="variant-label">Variant B</div>
+              <div class="variant-name">Contrarian</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Stop Calling XPO
+XPO Without the Wait
+XPO Quotes, Instantly
+XPO, Reimagined
+XPO + Every Major LTL
+Faster Than XPO Direct</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Why call XPO when you can compare rates and book online in seconds?
+XPO rates without phone tag. Quote, book, and track LTL in one platform.
+XPO Freight + every major US LTL carrier — compared and booked in one place.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ad-group-foot">
+        <div><span class="lp-label">Final landing</span><code>/content/xpo</code> · <span class="lp-label" style="margin-left: 12px;">Interim</span><code>/ltl-carriers</code></div>
+        <div><span class="lp-label">Launch</span>Week 4</div>
+      </div>
+    </div>
+
+    <div class="ad-group">
+      <div class="ad-group-head">
+        <div class="ad-group-title-row">
+          <span class="ad-group-title"><span class="flag">🇺🇸</span> Estes Express</span>
+          <span class="pill pill-relaunch">Paused · Relaunch W4</span>
+        </div>
+        <div class="ad-group-meta">
+          <span><strong>Prior spend:</strong> 20 CAD/month</span>
+          <span><strong>Pre-pause volume:</strong> 5 clicks/month</span>
+        </div>
+        <div class="ad-group-vp"><strong>Carrier-specific value proposition:</strong> Estes Express is the largest privately-owned (non-public) US LTL carrier, family-owned since 1931. The copy can subtly reference that heritage and stability — shippers searching for Estes sometimes do so because of the reputation for family-owned reliability.</div>
+      </div>
+      <div class="ad-group-body">
+        <div class="variants">
+          <div class="variant variant-a">
+            <div class="variant-head">
+              <div class="variant-label">Variant A</div>
+              <div class="variant-name">Speed</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Instant Estes LTL Rates
+Estes Quotes Online
+Estes + 25 LTL Carriers
+Compare Estes Rates
+Book Estes in Minutes
+Live Estes Pricing
+Skip the Estes Hotline</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Instant Estes Express rates from the largest privately-owned US LTL carrier.
+Estes rates and tracking, plus every major US LTL carrier — in one platform.
+Quote and book Estes Express without the phone call. Live pricing included.</div>
+            </div>
+          </div>
+          <div class="variant variant-b">
+            <div class="variant-head">
+              <div class="variant-label">Variant B</div>
+              <div class="variant-name">Contrarian</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Stop Calling Estes
+Estes Without the Wait
+Estes, Reimagined
+Estes Quotes, Instantly
+Faster Than Estes Direct
+Estes, No Hold Music</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Why call Estes when you can compare 25+ carriers and book online instantly?
+Estes Express rates without phone tag. Quote, book, and track LTL online.
+Estes + every major LTL carrier — one platform, one click, one minute.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ad-group-foot">
+        <div><span class="lp-label">Final landing</span><code>/content/estes</code> · <span class="lp-label" style="margin-left: 12px;">Interim</span><code>/ltl-carriers</code></div>
+        <div><span class="lp-label">Launch</span>Week 4</div>
+      </div>
+    </div>
+
+    <div class="group-divider">Block · Carriers with specialized propositions</div>
+
+    <div class="ad-group">
+      <div class="ad-group-head">
+        <div class="ad-group-title-row">
+          <span class="ad-group-title"><span class="flag">🇺🇸</span> FedEx Freight</span>
+          <span class="pill pill-relaunch">Paused · Relaunch W4</span>
+        </div>
+        <div class="ad-group-meta">
+          <span><strong>Prior spend:</strong> 21 CAD/month</span>
+          <span><strong>Pre-pause volume:</strong> 6 clicks/month</span>
+        </div>
+        <div class="ad-group-vp"><strong>Carrier-specific value proposition:</strong> FedEx Freight differentiates between Priority (overnight regional, 2-day national) and Economy (3-5 day) service tiers. That service-level segmentation is unique among US LTL carriers. The copy can capitalize on that optionality. <strong>Brand caution:</strong> always use "FedEx Freight" in full (never just "FedEx"), and never phrase copy in a way that could suggest FreightSimple IS FedEx.</div>
+      </div>
+      <div class="ad-group-body">
+        <div class="variants">
+          <div class="variant variant-a">
+            <div class="variant-head">
+              <div class="variant-label">Variant A</div>
+              <div class="variant-name">Speed</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Instant FedEx Freight Rates
+FedEx Freight Quotes Online
+FedEx + 25 LTL Carriers
+Compare FedEx Freight
+Book FedEx LTL Online
+Live FedEx Freight Rates</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Instant FedEx Freight Priority and Economy LTL rates. Plus 25+ carriers.
+FedEx Freight rates and tracking, plus every major LTL carrier in one platform.
+Quote both FedEx Freight Priority and Economy without the phone call.</div>
+            </div>
+          </div>
+          <div class="variant variant-b">
+            <div class="variant-head">
+              <div class="variant-label">Variant B</div>
+              <div class="variant-name">Contrarian</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Stop Calling FedEx Freight
+FedEx Freight, Reimagined
+FedEx Without the Wait
+FedEx Freight Direct Quotes
+Faster Than FedEx Direct</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Why call FedEx Freight when you can compare and book LTL online instantly?
+FedEx Freight rates without hold music. Quote, book, and track LTL online.
+FedEx Freight Priority &amp; Economy + every major LTL carrier — compared instantly.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ad-group-foot">
+        <div><span class="lp-label">Final landing</span><code>/content/fedex-freight</code> · <span class="lp-label" style="margin-left: 12px;">Interim</span><code>/ltl-carriers</code></div>
+        <div><span class="lp-label">Launch</span>Week 4</div>
+      </div>
+    </div>
+
+    <div class="ad-group">
+      <div class="ad-group-head">
+        <div class="ad-group-title-row">
+          <span class="ad-group-title"><span class="flag">🇺🇸</span> Roadrunner</span>
+          <span class="pill pill-relaunch">Paused · Relaunch W4</span>
+        </div>
+        <div class="ad-group-meta">
+          <span><strong>Prior spend:</strong> 7 CAD/month</span>
+          <span><strong>Pre-pause volume:</strong> 2 clicks/month</span>
+        </div>
+        <div class="ad-group-vp"><strong>Carrier-specific value proposition:</strong> Roadrunner Freight (relaunched under new management post-2020) specializes in long-haul LTL lanes — long routes that many other carriers handle less efficiently. The copy emphasizes that specialty. <strong>Note:</strong> pre-pause volume is very low (2 clicks/month); worth deciding whether to relaunch or consolidate into the Comparison ad group.</div>
+      </div>
+      <div class="ad-group-body">
+        <div class="variants">
+          <div class="variant variant-a">
+            <div class="variant-head">
+              <div class="variant-label">Variant A</div>
+              <div class="variant-name">Speed</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Instant Roadrunner Rates
+Roadrunner Quotes Online
+Roadrunner + 25 Carriers
+Compare Roadrunner LTL
+Book Roadrunner Online
+Live Roadrunner Pricing</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Instant Roadrunner Freight rates with long-haul LTL specialty. Plus 25+ carriers.
+Roadrunner rates and tracking, plus every major LTL carrier — all in one platform.
+Roadrunner Freight quotes without the phone call. Live pricing included.</div>
+            </div>
+          </div>
+          <div class="variant variant-b">
+            <div class="variant-head">
+              <div class="variant-label">Variant B</div>
+              <div class="variant-name">Contrarian</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Stop Calling Roadrunner
+Roadrunner Without Wait
+Roadrunner, Reimagined
+Roadrunner Direct Quotes
+Faster Than Roadrunner Direct</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Why call Roadrunner when you can compare 25+ carriers online instantly?
+Roadrunner rates without phone tag. Quote, book, and track LTL online.
+Roadrunner + every major US LTL carrier — compared in one click.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="group-divider">Block · Canadian carriers</div>
+
+    <div class="ad-group">
+      <div class="ad-group-head">
+        <div class="ad-group-title-row">
+          <span class="ad-group-title"><span class="flag">🇨🇦</span> Vitran</span>
+          <span class="pill pill-relaunch">Paused · Relaunch W4</span>
+        </div>
+        <div class="ad-group-meta">
+          <span><strong>Prior spend:</strong> 57 CAD/month</span>
+          <span><strong>Pre-pause volume:</strong> 15 clicks/month</span>
+        </div>
+        <div class="ad-group-vp"><strong>Carrier-specific value proposition:</strong> Vitran remains an important Canadian LTL carrier on the FreightSimple platform with cross-border CA-US capability. The copy emphasizes Vitran as a Canadian-rooted option that shippers can compare side-by-side with both Canadian and US carriers in seconds.</div>
+      </div>
+      <div class="ad-group-body">
+        <div class="variants">
+          <div class="variant variant-a">
+            <div class="variant-head">
+              <div class="variant-label">Variant A</div>
+              <div class="variant-name">Speed</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Instant Vitran LTL Rates
+Quote Vitran Online
+Vitran LTL in Seconds
+Compare Vitran Rates
+Book Vitran in Minutes
+Live Vitran Pricing
+Vitran + 25 LTL Carriers
+Skip the Vitran Call</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Instant Vitran LTL rates with cross-border CA-US support. Plus 25+ carriers.
+Vitran rates and tracking, plus every major Canadian and US LTL carrier.
+Quote Vitran online without the phone call. Live pricing, instant booking.</div>
+            </div>
+          </div>
+          <div class="variant variant-b">
+            <div class="variant-head">
+              <div class="variant-label">Variant B</div>
+              <div class="variant-name">Contrarian</div>
+            </div>
+            <div class="variant-body">
+              <div class="variant-section-label">Headlines</div>
+              <div class="copy-block">Stop Calling Vitran
+Vitran Without the Wait
+Vitran Quotes, Instantly
+Vitran, Reimagined
+Faster Than Vitran Direct
+Vitran, No Phone Tag
+Compare Vitran + 25 More</div>
+              <div class="variant-section-label">Descriptions</div>
+              <div class="copy-block">Why call Vitran for a quote when you can compare 25+ carriers in seconds?
+Vitran rates without the hold music. Quote, book, and track LTL online.
+Vitran + every major Canadian and US LTL carrier — compared in one click.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ad-group-foot">
+        <div><span class="lp-label">Final landing</span><code>/content/vitran</code> · <span class="lp-label" style="margin-left: 12px;">Interim</span><code>/ltl-carriers</code></div>
+        <div><span class="lp-label">Launch</span>Week 4</div>
+      </div>
+    </div>
+
+  </section>
+
+  <section>
+    <span class="section-num">05 · Deployment plan</span>
+    <h2>Three weeks, <em>three execution blocks.</em></h2>
+    <p>The plan is sequenced by dependency: anything that can be launched without touching the website goes first; anything that needs a new LP follows. If everything goes to plan, by Week 4 all 10 ad groups are running with new copy and relevant landing pages.</p>
+
+    <div class="timeline-cards">
+      <div class="tl-card tl-card-1">
+        <div class="tl-card-head">
+          <div class="tl-week">Week 1 · This week</div>
+          <div class="tl-title">Quick wins, no product changes</div>
+        </div>
+        <div class="tl-card-body">
+          <ul>
+            <li><strong>Pause</strong> the 8 ad groups with zero conversions (TForce, ABF, SAIA, XPO, Vitran, Estes, Roadrunner, FedEx)</li>
+            <li><strong>Launch new copy</strong> in Generic LTL — RSA A and B in parallel</li>
+            <li><strong>Launch new copy</strong> in Day &amp; Ross and Manitoulin — replaces current copy</li>
+            <li><strong>Revert bid strategy</strong> to "Maximize Conversions" until we hit 40+ conv/month</li>
+            <li><strong>Activate extensions:</strong> sitelinks, callouts, structured snippets</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-card tl-card-2">
+        <div class="tl-card-head">
+          <div class="tl-week">Week 2</div>
+          <div class="tl-title">Build the landing base</div>
+        </div>
+        <div class="tl-card-body">
+          <ul>
+            <li><strong>Build <code>/ltl-carriers</code></strong> — interim comparison page</li>
+            <li><strong>Build <code>/content/tforce</code></strong> and <strong><code>/content/abf</code></strong> — priority based on pre-pause volume</li>
+            <li><strong>Audit</strong> remaining <code>/content/*</code> pages that are indexed but empty</li>
+            <li><strong>First performance check-in</strong> on Week 1 ads</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-card tl-card-3">
+        <div class="tl-card-head">
+          <div class="tl-week">Weeks 3 &amp; 4</div>
+          <div class="tl-title">Relaunch carriers, scale winners</div>
+        </div>
+        <div class="tl-card-body">
+          <ul>
+            <li><strong>Relaunch TForce and ABF</strong> with new copy and LPs (Week 3)</li>
+            <li><strong>Build remaining LPs:</strong> SAIA, XPO, Estes, FedEx Freight, Roadrunner, Vitran</li>
+            <li><strong>Relaunch the remaining 6 ad groups</strong> as each LP is ready (Week 4)</li>
+            <li><strong>Scale budget</strong> on the "Comparison" ad group (66× ROAS, underfunded)</li>
+            <li><strong>Decide</strong> whether Roadrunner relaunches or consolidates into Comparison</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3>Summary of changes by ad group</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Ad group</th>
+          <th>Week 1 action</th>
+          <th>Subsequent action</th>
+          <th>Landing</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="strong-cell">Generic LTL</td><td>New copy (A + B)</td><td>Monitor &amp; scale</td><td><code>/ltl-quotes</code></td></tr>
+        <tr><td class="strong-cell">Day &amp; Ross</td><td>New copy (A + B)</td><td>Monitor &amp; scale</td><td><code>/content/day-ross</code></td></tr>
+        <tr><td class="strong-cell">Manitoulin</td><td>New copy (A + B)</td><td>Monitor &amp; scale</td><td><code>/content/manitoulin</code></td></tr>
+        <tr><td class="strong-cell">Comparison</td><td>Increase budget</td><td>Expand keywords</td><td>No change</td></tr>
+        <tr><td class="strong-cell">Cross-Border</td><td>No change</td><td>Monitor</td><td>No change</td></tr>
+        <tr><td class="strong-cell">Canada</td><td>No change</td><td>Monitor</td><td>No change</td></tr>
+        <tr><td class="strong-cell">Quote Intent</td><td>No change</td><td>Expand</td><td>No change</td></tr>
+        <tr><td class="strong-cell">TForce</td><td>Keep paused</td><td>Relaunch W3</td><td><code>/content/tforce</code></td></tr>
+        <tr><td class="strong-cell">ABF</td><td>Keep paused</td><td>Relaunch W3</td><td><code>/content/abf</code></td></tr>
+        <tr><td class="strong-cell">SAIA</td><td>Keep paused</td><td>Relaunch W4</td><td><code>/content/saia</code></td></tr>
+        <tr><td class="strong-cell">XPO</td><td>Keep paused</td><td>Relaunch W4</td><td><code>/content/xpo</code></td></tr>
+        <tr><td class="strong-cell">Estes</td><td>Keep paused</td><td>Relaunch W4</td><td><code>/content/estes</code></td></tr>
+        <tr><td class="strong-cell">FedEx Freight</td><td>Keep paused</td><td>Relaunch W4</td><td><code>/content/fedex-freight</code></td></tr>
+        <tr><td class="strong-cell">Roadrunner</td><td>Keep paused</td><td>Review viability</td><td><code>/content/roadrunner</code></td></tr>
+        <tr><td class="strong-cell">Vitran</td><td>Keep paused</td><td>Relaunch W4</td><td><code>/content/vitran</code></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <span class="section-num">06 · Decisions required</span>
+    <h2>Four approvals to <em>start executing.</em></h2>
+
+    <div class="asks">
+      <h4>What I need from Chris to kick off</h4>
+      <ol>
+        <li><strong>Approve the 3-week deployment plan</strong> as defined. If there are specific objections to any phase, let's align before anything goes live in Google Ads.</li>
+        <li><strong>Validate with product that the 9 listed carriers are active on the platform.</strong> If any aren't offered, they come out of the plan.</li>
+        <li><strong>Approve the Generic LTL copy for A/B testing.</strong> If Chris prefers a specific variant of the two, flag it. Default: both in parallel.</li>
+        <li><strong>Confirm ownership of Google Ads changes</strong>: copy, ad group, and bid strategy changes go through marketing first, with a weekly check-in with Chris to review performance.</li>
+      </ol>
+    </div>
+
+    <div class="callout callout-warning">
+      <div class="callout-label">Risk of not executing</div>
+      <p>Keeping the current Generic LTL copy ("Freight Billing" in the headline) continues to position FreightSimple as a billing tool, not as an LTL quoting platform. <strong>Every day without change = wrong advertising signal being learned by Google's algorithm.</strong></p>
+    </div>
+
+    <p style="margin-top: 32px;">Once approved, Phase 1 can start this same week. The two new Generic LTL RSAs can be live in under 30 minutes from approval.</p>
+  </section>
+
+  <div class="doc-footer">
+    <div>FreightSimple · Google Ads Execution Plan · May 28, 2026</div>
+    <div>Daniela Perea · Marketing Lead</div>
+  </div>
+
+</div>
+
+</body>
+</html>

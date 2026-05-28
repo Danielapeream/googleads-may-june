@@ -162,10 +162,10 @@ freightsimple-google-ads/
 
 ---
 
-## 👤 Maintainer
+## 👥 Ownership
 
-**Daniela Perea** · Marketing Lead, FreightSimple
-For questions, decisions, or new doc additions — reach out via Slack or open an issue.
+**FreightSimple · Marketing**
+For questions, decisions, or new doc additions — reach out via Slack `#marketing` or open an issue in this repo.
 
 **Last updated:** May 28, 2026
 **Next scheduled update:** Week 1 performance check-in (early June 2026)
